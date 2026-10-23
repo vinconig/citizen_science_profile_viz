@@ -8,7 +8,7 @@ A standardized way to visualize the profile of a citizen science project. The wo
 
 ## Running
 
-There is no build, lint, or test setup. Dependencies live in `pyproject.toml` (`matplotlib`, `numpy`, `jupyterlab`, `ipykernel`) and are managed with [uv](https://docs.astral.sh/uv/):
+There is no build, lint, or test setup. Dependencies live in `pyproject.toml` (`matplotlib`, `numpy`, `jupyterlab`, `ipykernel`, `ipywidgets`) and are managed with [uv](https://docs.astral.sh/uv/):
 
 ```
 uv sync                  # create .venv and install dependencies
@@ -16,7 +16,7 @@ uv run jupyter lab       # open the notebook
 MPLBACKEND=Agg uv run jupyter nbconvert --to notebook --execute profile_viz.ipynb --output-dir /tmp   # headless smoke test
 ```
 
-Without uv: `python -m venv .venv && source .venv/bin/activate && pip install matplotlib numpy jupyterlab ipykernel`.
+Without uv: `python -m venv .venv && source .venv/bin/activate && pip install matplotlib numpy jupyterlab ipykernel ipywidgets`.
 
 Run `profile_viz.ipynb` top to bottom from the repo root: the palette is loaded via the relative path `PALETTE_FILE = "colorpalette.json"`, so the notebook's working directory must contain it.
 
@@ -34,8 +34,12 @@ Two files carry the design; they are coupled through the palette's JSON structur
 
 **Always, whenever a new notebook cell is created** (or an existing one edited), check whether its imports introduced or removed a third-party dependency, and update `dependencies` in `pyproject.toml` accordingly (then run `uv sync` to refresh `uv.lock`). Also update the pip fallback command in the Running section if the dependency list changes.
 
+The last cell, `plot_profile_overview`, combines all charts in one paper-ready figure (a: project type, b: Pocock axes, c: participation depth) and saves PNG + PDF to `output/`. For that, each `plot_*` function takes an optional `ax` (draw into it instead of creating a figure; the project type chart needs a polar axes) and a `label_size`. When adding a chart, give it the same `ax`/`label_size` parameters and add it to the overview.
+
 When adding a new chart, follow this pattern: a new markdown + code cell pair, a `plot_*` function with the same override and validation conventions, and any new colors added to `colorpalette.json` instead of the notebook.
 
 `participation_depth_options.ipynb` is a standalone design-exploration notebook for Haklay's four participation levels: its own copy of the theme cell, shared helpers, and three slider designs (`plot_depth_slider_classic`, `_steps`, `_annotated`) for the same 1-10 input (levels at 1, 4, 7, 10). The stepped meter was chosen and now lives in `profile_viz.ipynb` as `plot_participation_depth_chart`, colored from the theme family (`light`, `base`, `dark`, `darker` for the four levels, interpolated in between); the options notebook is kept for now. Only the options notebook uses the `Participation depth (Haklay)` assignment in `colorpalette.json` (an ordered scale on the sequential palette).
 
 The `shade()` and `neutral()` helpers read module-level state (`COLOR_FAMILY`, `palette`) defined in cell 1, so that cell must run first.
+
+`project_domain_tree.ipynb` is a standalone notebook (its own copy of the theme cell and helpers) that redraws the project-domain tree (Projects → Astronomy, Environment, Biology, Medical, Other Projects → seven Biology groups) from the `DOMAINS` dict (`{domain: {short label: description}}`). Only the selected domain is opened into its subcategory boxes (one row up to 7, otherwise two rows in a panel); only the path to the selected subcategory is colored from the theme family (`lighter`/`base`/`dark`/`darker`) and everything else is grey. `plot_domain_tree(domain, subcategory)` follows the usual `plot_*` conventions; `subcategory=None` selects only the domain (it gets the highlighted end-of-path color, nothing expands, no card). The last cell adds two linked `ipywidgets` dropdowns (the subcategory one starts with "(none)"; live kernel only) that redraw it.
