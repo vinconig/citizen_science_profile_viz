@@ -18,6 +18,7 @@ Some aspects can be determined for every citizen science project, whatever its d
 Of the typologies we looked at, these were identified as the most relevant, and together they give the clearest picture:
 
 - **Wiggins and Crowston [16]:** five project types: *action*, *conservation*, *investigation*, *virtual* and *education*.
+- **Haklay [ref]:** four levels of participation depth: *crowdsourcing*, *distributed intelligence*, *participatory science* and *extreme citizen science*. Shown as a slider with ten positions: the four levels, plus two steps in between each pair for projects that fall between levels.
 - *More to come.*
 
 ## Aspects specific to environmental monitoring campaigns

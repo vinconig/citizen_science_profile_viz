@@ -99,6 +99,16 @@
         "education": "#76B7B2"
       }
     },
+    "Participation depth (Haklay)": {
+      "use_case": "Ordered scale of four levels, lowest to highest depth of involvement: four steps of the sequential palette, light = crowdsourcing, dark = extreme citizen science. Steps in between are interpolated.",
+      "palette": "Sequential (single hue)",
+      "colors": {
+        "crowdsourcing": "#9ECAE1",
+        "distributed intelligence": "#6BAED6",
+        "participatory science": "#2171B5",
+        "extreme citizen science": "#08519C"
+      }
+    },
     "Pocock axes": {
       "use_case": "Ordered scales: draw from the sequential palette, never the categorical one",
       "palette": "Sequential (single hue)"

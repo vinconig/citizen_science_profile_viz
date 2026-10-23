@@ -36,4 +36,6 @@ Two files carry the design; they are coupled through the palette's JSON structur
 
 When adding a new chart, follow this pattern: a new markdown + code cell pair, a `plot_*` function with the same override and validation conventions, and any new colors added to `colorpalette.json` instead of the notebook.
 
+`participation_depth_options.ipynb` is a standalone design-exploration notebook for Haklay's four participation levels: its own copy of the theme cell, shared helpers, and three slider designs (`plot_depth_slider_classic`, `_steps`, `_annotated`) for the same 1-10 input (levels at 1, 4, 7, 10). The stepped meter was chosen and now lives in `profile_viz.ipynb` as `plot_participation_depth_chart`, colored from the theme family (`light`, `base`, `dark`, `darker` for the four levels, interpolated in between); the options notebook is kept for now. Only the options notebook uses the `Participation depth (Haklay)` assignment in `colorpalette.json` (an ordered scale on the sequential palette).
+
 The `shade()` and `neutral()` helpers read module-level state (`COLOR_FAMILY`, `palette`) defined in cell 1, so that cell must run first.
