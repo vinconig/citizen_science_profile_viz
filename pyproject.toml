@@ -1,0 +1,14 @@
+[project]
+name = "citizen-science-profile-viz"
+version = "0.1.0"
+description = "Visualize the profile of a citizen science project"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "jupyterlab",
+    "ipykernel",
+]
+
+[tool.uv]
+package = false  # notebook project, nothing to build or install
